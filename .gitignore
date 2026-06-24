@@ -1,0 +1,4 @@
+reports/*
+!reports/sample/
+*.secret
+appsettings.json
