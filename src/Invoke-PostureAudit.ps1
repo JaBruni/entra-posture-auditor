@@ -56,3 +56,24 @@ function Get-GuestRisks {
     -Property "DisplayName,UserPrincipalName,AccountEnabled,ExternalUserState" |
     Select-Object DisplayName, UserPrincipalName, AccountEnabled, ExternalUserState
 }
+
+function Get-DeviceRisks {
+  param([int]$StaleDays = 30)
+
+  $devices = Get-MgDeviceManagementManagedDevice -All
+  $cutoff  = (Get-Date).AddDays(-$StaleDays)
+
+  $nonCompliant = $devices |
+    Where-Object { $_.ComplianceState -ne "compliant" } |
+    Select-Object DeviceName, UserPrincipalName,
+                  OperatingSystem, ComplianceState, LastSyncDateTime
+
+  $stale = $devices |
+    Where-Object { $_.LastSyncDateTime -lt $cutoff } |
+    Select-Object DeviceName, UserPrincipalName, LastSyncDateTime
+
+  [PSCustomObject]@{
+    NonCompliant = $nonCompliant
+    Stale        = $stale
+  }
+}
