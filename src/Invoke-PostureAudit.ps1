@@ -1,3 +1,7 @@
+Connect-MgGraph -ClientId $env:GRAPH_APP_ID `
+                -TenantId $env:GRAPH_TENANT_ID `
+                -CertificateThumbprint $env:GRAPH_CERT_THUMBPRINT
+
 #Get stale accounts
 function Get-StaleAccounts {
   param([int]$DaysInactive = 90)
