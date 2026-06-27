@@ -2,7 +2,7 @@
 
 A PowerShell tool that audits a Microsoft 365 tenant for identity and device
 security gaps using the Microsoft Graph API, then scores the tenant's posture
-and generates a report.
+and generates a report. Runs unattended using app-only certificate authentication against Microsoft Graph.
 
 ## The Problem
 
@@ -101,8 +101,6 @@ Connect-MgGraph -Scopes "User.Read.All","Directory.Read.All",
 PowerShell · Microsoft Graph API · Entra ID · Microsoft Intune · Identity & Access Management (MFA, RBAC, Privileged access) · Security Posture Assessment · Least-privilege Design · Git
 
 ## Future Enhancements
-
-- App-only authentication for unattended, scheduled runs
 - Deployment as an Azure Automation runbook
 - Python component for findings enrichment
 - Conditional Access policy coverage analysis
